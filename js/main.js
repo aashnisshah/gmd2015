@@ -16,8 +16,7 @@ function draw() {
 
 	resetScreen();
 	drawBalls();
-	// update position of ball to move it 'down' the screen
-	balls[0].posY = balls[0].posY + balls[0].speed;
+	updateBallPosition();
 }
 
 function resetScreen() {
@@ -46,6 +45,16 @@ function createNewBall() {
 	ball.img.src = "img/sprites/lvl01mainChar.png";
 
 	balls.push(ball);
+}
+
+function updateBallPosition() {
+	balls.forEach(function(ball) {
+		if(ball.posY >= 134) {
+			console.log('round over');
+		} else {
+			ball.posY = ball.posY + ball.speed;
+		}
+	})
 }
 
 function setup() {
