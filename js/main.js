@@ -12,6 +12,7 @@ var wall = [];
 var width = 275;
 var height = 115;
 var blackImage = "img/sprites/lvl01black.png";
+var wallSpeed = 0.05;
 
 /* character objects */
 
@@ -21,6 +22,7 @@ function draw() {
 	drawBalls();
 	drawWalls();
 	updateBallPosition();
+	updateWallPositions();
 }
 
 function resetScreen() {
@@ -56,6 +58,7 @@ function createWall() {
 	section.wall = [];
 	section.size = getRandomNumber(1, 5);
 	section.leftOrRight = (getRandomNumber(1, 10) % 2) === 0 ? 0 : width;
+	section.speed = wallSpeed
 
 	for (var tileCount = 0; tileCount < section.size; tileCount++) {
 		var tile = createNewWallTile(tileCount, section.leftOrRight);
@@ -73,7 +76,15 @@ function drawWalls() {
 }
 
 function updateWallPositions() {
-
+	for (var wallSize = 0; wallSize < wall.length; wallSize++ ) {
+		for(var sectionSize = 0; sectionSize < wall.length; sectionSize++) {
+			if(wall[wallSize].leftOrRight === 0) {
+				wall[wallSize].wall[sectionSize].posX = wall[wallSize].wall[sectionSize].posX + wall[wallSize].speed;
+			} else {
+				wall[wallSize].wall[sectionSize].posX = wall[wallSize].wall[sectionSize].posX - wall[wallSize].speed;
+			}
+		}
+	}
 }
 
 function createNewWallTile(tileCount, leftOrRight) {
@@ -81,7 +92,6 @@ function createNewWallTile(tileCount, leftOrRight) {
 	var tileOffset = leftOrRight === 0 ? -(10 * tileCount) : 10 * tileCount;
 	tile.posX = leftOrRight + tileOffset;
 	tile.posY = getRandomNumber(10, height) + 10;
-	tile.speed = 0.05;
 	tile.count = tileCount;
 	tile.img = new Image();
 	tile.img.src = "img/sprites/lvl01wall.png";
