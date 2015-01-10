@@ -69,7 +69,7 @@ function createWall() {
 
 function drawWalls() {
 	for (var wallSize = 0; wallSize < wall.length; wallSize++ ) {
-		for(var sectionSize = 0; sectionSize < wall.length; sectionSize++) {
+		for(var sectionSize = 0; sectionSize < wall[wallSize].wall.length; sectionSize++) {
 			context.drawImage(wall[wallSize].wall[sectionSize].img, wall[wallSize].wall[sectionSize].posX, wall[wallSize].wall[sectionSize].posY);		
 		}
 	}
@@ -77,7 +77,7 @@ function drawWalls() {
 
 function updateWallPositions() {
 	for (var wallSize = 0; wallSize < wall.length; wallSize++ ) {
-		for(var sectionSize = 0; sectionSize < wall.length; sectionSize++) {
+		for(var sectionSize = 0; sectionSize < wall[wallSize].wall.length; sectionSize++) {
 			if(wall[wallSize].leftOrRight === 0) {
 				wall[wallSize].wall[sectionSize].posX = wall[wallSize].wall[sectionSize].posX + wall[wallSize].speed;
 			} else {
