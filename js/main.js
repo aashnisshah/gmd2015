@@ -79,10 +79,15 @@ function drawWalls() {
 function updateWallPositions() {
 	for (var wallSize = 0; wallSize < wall.length; wallSize++ ) {
 		for(var sectionSize = 0; sectionSize < wall[wallSize].wall.length; sectionSize++) {
-			if(wall[wallSize].leftOrRight === 'left') {
-				wall[wallSize].wall[sectionSize].posX = wall[wallSize].wall[sectionSize].posX + wall[wallSize].speed;
-			} else {
-				wall[wallSize].wall[sectionSize].posX = wall[wallSize].wall[sectionSize].posX - wall[wallSize].speed;
+			if(wall[wallSize].wall[sectionSize].active) {
+				if(wall[wallSize].leftOrRight === 'left' && wall[wallSize].wall[sectionSize].posX <= width) {
+					wall[wallSize].wall[sectionSize].posX = wall[wallSize].wall[sectionSize].posX + wall[wallSize].speed;
+				} else if (wall[wallSize].leftOrRight === 'right' && wall[wallSize].wall[sectionSize].posX > 0) {
+					wall[wallSize].wall[sectionSize].posX = wall[wallSize].wall[sectionSize].posX - wall[wallSize].speed;
+				} else {
+					wall[wallSize].wall[sectionSize].img.src = blackImage;
+					wall[wallSize].wall[sectionSize].active = false;
+				}
 			}
 		}
 	}
@@ -94,6 +99,7 @@ function createNewWallTile(tileCount, leftOrRight, startingY) {
 	tile.posX = leftOrRight === 'left' ? tileOffset : width + tileOffset;
 	tile.posY = startingY;
 	tile.count = tileCount;
+	tile.active = true;
 	tile.img = new Image();
 	tile.img.src = "img/sprites/lvl01wall.png";
 
