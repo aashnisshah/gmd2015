@@ -64,10 +64,12 @@ function drawBalls() {
 function ballHitWallCheck() {
 	for (var wallSize = 0; wallSize < wall.length; wallSize++ ) {
 		for(var sectionSize = 0; sectionSize < wall[wallSize].wall.length; sectionSize++) {
-			if((wall[wallSize].wall[sectionSize].posX <= balls[CURRENTBALL].posX && wall[wallSize].wall[sectionSize].posX + ballWidth >= balls[CURRENTBALL].posX) &&
-				(wall[wallSize].wall[sectionSize].posY <= balls[CURRENTBALL].posY && wall[wallSize].wall[sectionSize].posY + ballHeight >= balls[CURRENTBALL].posY)) {
-				console.log('collision!');
-				collision = true;
+			if(wall[wallSize].wall[sectionSize].active) {
+				if((wall[wallSize].wall[sectionSize].posX <= balls[CURRENTBALL].posX && wall[wallSize].wall[sectionSize].posX + ballWidth >= balls[CURRENTBALL].posX) &&
+					(wall[wallSize].wall[sectionSize].posY <= balls[CURRENTBALL].posY && wall[wallSize].wall[sectionSize].posY + ballHeight >= balls[CURRENTBALL].posY)) {
+					console.log('collision!');
+					collision = true;
+				}
 			}
 		}
 	}
