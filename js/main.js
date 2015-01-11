@@ -16,12 +16,13 @@ var wallSpeed = 0.3;
 var ballWidth = 18;
 var ballHeight = 18;
 var collision = false;
+var stopped = false;
 
 /* character objects */
 
 
 function draw() {
-	if(!collision) {
+	if(!collision && !stopped) {
 		resetScreen();
 		drawBalls();
 		drawWalls();
@@ -139,6 +140,20 @@ function updateBallPosition() {
 		}
 	})
 }
+
+/* keyboard handler */
+addEventListener("keydown", function (e) {
+  // up = 38, down = 40
+  if(e.keyCode == 38){
+    balls[0].speed = balls[0].speed - 0.05;
+  } else if(e.keyCode == 40){
+    balls[0].speed = balls[0].speed + 0.05;
+  } 
+
+  if(balls[0].speed <= 0) {
+  	stopped = true;
+  }
+}, false);
 
 function setup() {
 	canvas = document.getElementById("myCanvas");
