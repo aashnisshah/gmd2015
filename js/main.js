@@ -12,7 +12,9 @@ var wall = [];
 var width = 275;
 var height = 115;
 var blackImage = "img/sprites/lvl01black.png";
-var wallSpeed = 0.05;
+var wallSpeed = 0.3;
+var ballWidth = 18;
+var ballHeight = 18;
 
 /* character objects */
 
@@ -23,6 +25,7 @@ function draw() {
 	drawWalls();
 	updateBallPosition();
 	updateWallPositions();
+	ballHitWallCheck();
 }
 
 function resetScreen() {
@@ -38,6 +41,17 @@ function drawBalls() {
 	balls.forEach(function(ball) {
 		context.drawImage(ball.img, ball.posX, ball.posY);
 	})
+}
+
+function ballHitWallCheck() {
+	for (var wallSize = 0; wallSize < wall.length; wallSize++ ) {
+		for(var sectionSize = 0; sectionSize < wall[wallSize].wall.length; sectionSize++) {
+			if((wall[wallSize].wall[sectionSize].posX <= balls[0].posX && wall[wallSize].wall[sectionSize].posX + ballWidth >= balls[0].posX) &&
+				(wall[wallSize].wall[sectionSize].posY <= balls[0].posY && wall[wallSize].wall[sectionSize].posY + ballHeight >= balls[0].posY)) {
+				console.log('collision!');
+			}
+		}
+	}
 }
 
 function createNewBall() {
