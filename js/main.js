@@ -15,17 +15,20 @@ var blackImage = "img/sprites/lvl01black.png";
 var wallSpeed = 0.3;
 var ballWidth = 18;
 var ballHeight = 18;
+var collision = false;
 
 /* character objects */
 
 
 function draw() {
-	resetScreen();
-	drawBalls();
-	drawWalls();
-	updateBallPosition();
-	updateWallPositions();
-	ballHitWallCheck();
+	if(!collision) {
+		resetScreen();
+		drawBalls();
+		drawWalls();
+		updateBallPosition();
+		updateWallPositions();
+		ballHitWallCheck();
+	}
 }
 
 function resetScreen() {
@@ -49,6 +52,7 @@ function ballHitWallCheck() {
 			if((wall[wallSize].wall[sectionSize].posX <= balls[0].posX && wall[wallSize].wall[sectionSize].posX + ballWidth >= balls[0].posX) &&
 				(wall[wallSize].wall[sectionSize].posY <= balls[0].posY && wall[wallSize].wall[sectionSize].posY + ballHeight >= balls[0].posY)) {
 				console.log('collision!');
+				collision = true;
 			}
 		}
 	}
