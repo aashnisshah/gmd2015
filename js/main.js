@@ -17,6 +17,9 @@ var ballWidth = 18;
 var ballHeight = 18;
 var collision = false;
 var stopped = false;
+var NUMWALLS = 0;
+var MAXWALLS = 4;
+var WALLCOUNTER = 0;
 
 /* character objects */
 
@@ -29,6 +32,15 @@ function draw() {
 		updateBallPosition();
 		updateWallPositions();
 		ballHitWallCheck();
+	}
+
+	if(NUMWALLS < MAXWALLS) {
+		if(WALLCOUNTER >= 130) {
+			createWall();
+			WALLCOUNTER = 0;
+		} else {
+			WALLCOUNTER = WALLCOUNTER + 1;
+		}
 	}
 }
 
@@ -78,6 +90,7 @@ function createWall() {
 	section.size = getRandomNumber(1, 5);
 	section.leftOrRight = (getRandomNumber(1, 10) % 2) === 0 ? 'left' : 'right';
 	section.speed = wallSpeed
+	section.numActive = section.size;
 	var startingY = getRandomNumber(15, height);
 
 	for (var tileCount = 0; tileCount < section.size; tileCount++) {
@@ -85,6 +98,7 @@ function createWall() {
 		section.wall.push(tile);
 	}
 	wall.push(section);
+	NUMWALLS = NUMWALLS + 1;
 }
 
 function drawWalls() {
@@ -106,6 +120,11 @@ function updateWallPositions() {
 				} else {
 					wall[wallSize].wall[sectionSize].img.src = blackImage;
 					wall[wallSize].wall[sectionSize].active = false;
+					wall[wallSize].numActive = wall[wallSize].numActive - 1;
+					if(wall[wallSize].numActive === 0 ) {
+						wall[wallSize].active = false;
+						NUMWALLS = NUMWALLS - 1;
+					}
 				}
 			}
 		}
