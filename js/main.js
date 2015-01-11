@@ -20,6 +20,8 @@ var stopped = false;
 var NUMWALLS = 0;
 var MAXWALLS = 4;
 var WALLCOUNTER = 0;
+var TOTALBALLS = 5;
+var CURRENTBALL = 0;
 
 /* character objects */
 
@@ -62,8 +64,8 @@ function drawBalls() {
 function ballHitWallCheck() {
 	for (var wallSize = 0; wallSize < wall.length; wallSize++ ) {
 		for(var sectionSize = 0; sectionSize < wall[wallSize].wall.length; sectionSize++) {
-			if((wall[wallSize].wall[sectionSize].posX <= balls[0].posX && wall[wallSize].wall[sectionSize].posX + ballWidth >= balls[0].posX) &&
-				(wall[wallSize].wall[sectionSize].posY <= balls[0].posY && wall[wallSize].wall[sectionSize].posY + ballHeight >= balls[0].posY)) {
+			if((wall[wallSize].wall[sectionSize].posX <= balls[CURRENTBALL].posX && wall[wallSize].wall[sectionSize].posX + ballWidth >= balls[CURRENTBALL].posX) &&
+				(wall[wallSize].wall[sectionSize].posY <= balls[CURRENTBALL].posY && wall[wallSize].wall[sectionSize].posY + ballHeight >= balls[CURRENTBALL].posY)) {
 				console.log('collision!');
 				collision = true;
 			}
@@ -151,13 +153,18 @@ function getRandomNumber(small, big) {
 }
 
 function updateBallPosition() {
-	balls.forEach(function(ball) {
-		if(ball.posY >= 134) {
-			console.log('round over');
+		if(balls[CURRENTBALL].posY >= 134) {
+			if(CURRENTBALL < TOTALBALLS - 1) {
+				// CURRENTBALL passed, now to get the next ball
+				createNewBall();
+				CURRENTBALL = CURRENTBALL + 1;
+			} else {
+				// game over, you win!
+				alert('you win!');
+			}
 		} else {
-			ball.posY = ball.posY + ball.speed;
+			balls[CURRENTBALL].posY = balls[CURRENTBALL].posY + balls[CURRENTBALL].speed;
 		}
-	})
 }
 
 /* keyboard handler */
@@ -178,6 +185,7 @@ function setup() {
 	canvas = document.getElementById("myCanvas");
 	context = canvas.getContext("2d");
 	createNewBall();
+	CURRENTBALL = 0;
 	createWall();
 }
 
