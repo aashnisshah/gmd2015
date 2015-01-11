@@ -171,12 +171,12 @@ function updateBallPosition() {
 addEventListener("keydown", function (e) {
   // up = 38, down = 40
   if(e.keyCode == 38){
-    balls[0].speed = balls[0].speed - 0.05;
+    balls[CURRENTBALL].speed = balls[CURRENTBALL].speed - 0.05;
   } else if(e.keyCode == 40){
-    balls[0].speed = balls[0].speed + 0.05;
+    balls[CURRENTBALL].speed = balls[CURRENTBALL].speed + 0.05;
   } 
 
-  if(balls[0].speed <= 0) {
+  if(balls[CURRENTBALL].speed <= 0) {
   	stopped = true;
   }
 }, false);
