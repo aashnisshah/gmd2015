@@ -79,7 +79,7 @@ function ballHitWallCheck() {
 
 function createNewBall() {
 	var ball = new Object();
-	var rand = getRandomNumber(10, width) + 10;
+	var rand = getRandomNumber(10, width - ballWidth) + 10;
 
 	ball.posX = rand;
 	ball.posY = 0;
@@ -97,7 +97,7 @@ function createWall() {
 	section.leftOrRight = (getRandomNumber(1, 10) % 2) === 0 ? 'left' : 'right';
 	section.speed = wallSpeed
 	section.numActive = section.size;
-	var startingY = getRandomNumber(15, height-wallHeight);
+	var startingY = getRandomNumber(15, height - wallHeight - (1.5 * ballHeight));
 
 	for (var tileCount = 0; tileCount < section.size; tileCount++) {
 		var tile = createNewWallTile(tileCount, section.leftOrRight, startingY);
