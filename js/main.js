@@ -20,7 +20,8 @@ var wallWidth = 50;
 var collision = false;
 var stopped = false;
 var NUMWALLS = 0;
-var MAXWALLS = 5;
+var MAXWALLS = 10;
+var WALLCOUNTERLIMIT = 300;
 var WALLCOUNTER = 0;
 var TOTALBALLS = 5;
 var CURRENTBALL = 0;
@@ -39,7 +40,7 @@ function draw() {
 	}
 
 	if(NUMWALLS < MAXWALLS) {
-		if(WALLCOUNTER >= 130) {
+		if(WALLCOUNTER >= WALLCOUNTERLIMIT) {
 			createWall();
 			WALLCOUNTER = 0;
 		} else {
