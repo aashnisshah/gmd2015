@@ -13,8 +13,8 @@ var width = 600;
 var height = 800;
 var blackImage = "img/sprites/lvl01black.png";
 var wallSpeed = 0.3;
-var ballWidth = 18;
-var ballHeight = 18;
+var ballWidth = 50;
+var ballHeight = 50;
 var wallHeight = 43;
 var wallWidth = 50;
 var collision = false;
@@ -157,7 +157,7 @@ function getRandomNumber(small, big) {
 }
 
 function updateBallPosition() {
-		if(balls[CURRENTBALL].posY >= 134) {
+		if(balls[CURRENTBALL].posY >= height - ballHeight) {
 			if(CURRENTBALL < TOTALBALLS - 1) {
 				// CURRENTBALL passed, now to get the next ball
 				createNewBall();
