@@ -9,16 +9,18 @@ window.onload=function() {
 var count = 0;
 var balls = [];
 var wall = [];
-var width = 275;
-var height = 115;
+var width = 600;
+var height = 800;
 var blackImage = "img/sprites/lvl01black.png";
 var wallSpeed = 0.3;
 var ballWidth = 18;
 var ballHeight = 18;
+var wallHeight = 43;
+var wallWidth = 50;
 var collision = false;
 var stopped = false;
 var NUMWALLS = 0;
-var MAXWALLS = 4;
+var MAXWALLS = 5;
 var WALLCOUNTER = 0;
 var TOTALBALLS = 5;
 var CURRENTBALL = 0;
@@ -95,7 +97,7 @@ function createWall() {
 	section.leftOrRight = (getRandomNumber(1, 10) % 2) === 0 ? 'left' : 'right';
 	section.speed = wallSpeed
 	section.numActive = section.size;
-	var startingY = getRandomNumber(15, height);
+	var startingY = getRandomNumber(15, height-wallHeight);
 
 	for (var tileCount = 0; tileCount < section.size; tileCount++) {
 		var tile = createNewWallTile(tileCount, section.leftOrRight, startingY);
@@ -137,7 +139,7 @@ function updateWallPositions() {
 
 function createNewWallTile(tileCount, leftOrRight, startingY) {
 	var tile = new Object();
-	var tileOffset = leftOrRight === 'left' ? ((tileCount * 22) * -1) : (tileCount * 22);
+	var tileOffset = leftOrRight === 'left' ? ((tileCount * wallWidth) * -1) : (tileCount * wallWidth);
 	tile.posX = leftOrRight === 'left' ? tileOffset : width + tileOffset;
 	tile.posY = startingY;
 	tile.count = tileCount;
@@ -186,6 +188,13 @@ addEventListener("keydown", function (e) {
 function setup() {
 	canvas = document.getElementById("myCanvas");
 	context = canvas.getContext("2d");
+	canvas.width = document.body.clientWidth; //document.width is obsolete
+    canvas.height = document.body.clientHeight; //document.height is obsolete
+    canvasW = canvas.width;
+    canvasH = canvas.height;
+    console.log('w: ' + canvasW + ' h: ' + canvasH);
+    width = canvasW;
+    height = canvasH;
 	createNewBall();
 	CURRENTBALL = 0;
 	createWall();
