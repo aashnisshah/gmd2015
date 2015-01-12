@@ -50,8 +50,12 @@ function draw() {
 
 function resetScreen() {
 	if(context) {
-		context.fillStyle = "#000000";
-		context.fillRect(0, 0, window.innerWidth, window.innerHeight);
+		context.fillStyle = 'url(img/sprites/lvl01background.png)';
+		context.fillRect(0, 0, width, height);
+
+	    var background = new Image();
+		background.src = "img/sprites/lvl01background.png";
+	    context.drawImage(background, 0, 0, width, height);
 	} else {
 		console.log('no context');
 	}
@@ -192,9 +196,14 @@ function setup() {
     canvas.height = document.body.clientHeight; //document.height is obsolete
     canvasW = canvas.width;
     canvasH = canvas.height;
-    console.log('w: ' + canvasW + ' h: ' + canvasH);
     width = canvasW;
     height = canvasH;
+
+    var background = new Image();
+	background.src = "img/sprites/lvl01background.png";
+    context.drawImage(background,0,0);   
+
+
 	createNewBall();
 	CURRENTBALL = 0;
 	createWall();
