@@ -5,7 +5,9 @@ var canvas;
 window.onload=function() {
 };
 
-/* game variables */
+/*****************************************************
+					Global Variables
+ *****************************************************/
 var count;
 var balls;
 var wall;
@@ -27,8 +29,6 @@ var WALLCOUNTERLIMIT;
 var WALLCOUNTER;
 var TOTALBALLS;
 var CURRENTBALL;
-
-/* character objects */
 
 function initializeGlobalVariables() {
 	count = 0;
@@ -54,7 +54,9 @@ function initializeGlobalVariables() {
 	CURRENTBALL = 0;
 }
 
-
+/*****************************************************
+						Draw
+ *****************************************************/
 function draw() {
 	if(!collision && !stopped) {
 		resetScreen();
@@ -76,24 +78,9 @@ function draw() {
 	}
 }
 
-function tryagain() {
-	var tryagain = new Image();
-	tryagain.src = "img/sprites/lvl01tryagain.png";
-    context.drawImage(tryagain, tryagainX, tryagainY); 
-}
-
-function resetScreen() {
-	if(context) {
-		context.fillRect(0, 0, width, height);
-
-	    var background = new Image();
-		background.src = "img/sprites/lvl01background.png";
-	    context.drawImage(background, 0, 0, width, height);
-	} else {
-		console.log('no context');
-	}
-}
-
+/*****************************************************
+					 Balls 
+ *****************************************************/
 function drawBalls() {
 	balls.forEach(function(ball) {
 		context.drawImage(ball.img, ball.posX, ball.posY);
@@ -122,6 +109,24 @@ function createNewBall() {
 	balls.push(ball);
 }
 
+function updateBallPosition() {
+	if(balls[CURRENTBALL].posY >= height - ballHeight) {
+		if(CURRENTBALL < TOTALBALLS - 1) {
+			// CURRENTBALL passed, now to get the next ball
+			createNewBall();
+			CURRENTBALL = CURRENTBALL + 1;
+		} else {
+			// game over, you win!
+			alert('you win!');
+		}
+	} else {
+		balls[CURRENTBALL].posY = balls[CURRENTBALL].posY + balls[CURRENTBALL].speed;
+	}
+}
+
+/*****************************************************
+					Walls 
+ *****************************************************/
 function createWall() {
 	var section = new Object();
 	section.wall = [];
@@ -183,28 +188,18 @@ function createNewWallTile(tileCount, leftOrRight, startingY) {
 	return tile;
 }
 
+/*****************************************************
+					Helper Functions
+ *****************************************************/
 function getRandomNumber(small, big) {
 	small = small || 0;
 	big = big || 0;
 	return Math.floor(Math.random() * big) + small;
 }
 
-function updateBallPosition() {
-		if(balls[CURRENTBALL].posY >= height - ballHeight) {
-			if(CURRENTBALL < TOTALBALLS - 1) {
-				// CURRENTBALL passed, now to get the next ball
-				createNewBall();
-				CURRENTBALL = CURRENTBALL + 1;
-			} else {
-				// game over, you win!
-				alert('you win!');
-			}
-		} else {
-			balls[CURRENTBALL].posY = balls[CURRENTBALL].posY + balls[CURRENTBALL].speed;
-		}
-}
-
-/* keyboard handler */
+/*****************************************************
+					Event Listeners 
+ *****************************************************/
 addEventListener("keydown", function (e) {
   // up = 38, down = 40
   if(e.keyCode == 38){
@@ -226,7 +221,9 @@ addEventListener('click', function(click) {
 	}
 }, false);
 
-
+/*****************************************************
+					Setup
+ *****************************************************/
 function setup() {
 	initializeGlobalVariables();
 	canvas = document.getElementById("myCanvas");
@@ -247,6 +244,27 @@ function setup() {
 	createWall();
 }
 
+function tryagain() {
+	var tryagain = new Image();
+	tryagain.src = "img/sprites/lvl01tryagain.png";
+    context.drawImage(tryagain, tryagainX, tryagainY); 
+}
+
+function resetScreen() {
+	if(context) {
+		context.fillRect(0, 0, width, height);
+
+	    var background = new Image();
+		background.src = "img/sprites/lvl01background.png";
+	    context.drawImage(background, 0, 0, width, height);
+	} else {
+		console.log('no context');
+	}
+}
+
+/*****************************************************
+					Initial Calls 
+ *****************************************************/
 setup();
 var listener = setInterval(main, 1);
 
