@@ -6,27 +6,53 @@ window.onload=function() {
 };
 
 /* game variables */
-var count = 0;
-var balls = [];
-var wall = [];
-var width = 800;
-var height = 600;
-var blackImage = "img/sprites/lvl01black.png";
-var wallSpeed = 0.3;
-var ballWidth = 45;
-var ballHeight = 45;
-var wallHeight = 40;
-var wallWidth = 45;
-var collision = false;
-var stopped = false;
-var NUMWALLS = 0;
-var MAXWALLS = 10;
-var WALLCOUNTERLIMIT = 300;
-var WALLCOUNTER = 0;
-var TOTALBALLS = 5;
-var CURRENTBALL = 0;
+var count;
+var balls;
+var wall;
+var width;
+var height;
+var blackImage;
+var wallSpeed;
+var ballWidth;
+var ballHeight;
+var wallHeight;
+var wallWidth;
+var tryagainX;
+var tryagainY;
+var collision;
+var stopped;
+var NUMWALLS;
+var MAXWALLS;
+var WALLCOUNTERLIMIT;
+var WALLCOUNTER;
+var TOTALBALLS;
+var CURRENTBALL;
 
 /* character objects */
+
+function initializeGlobalVariables() {
+	count = 0;
+	balls = [];
+	wall = [];
+	width = 800;
+	height = 600;
+	blackImage = "img/sprites/lvl01black.png";
+	wallSpeed = 0.3;
+	ballWidth = 45;
+	ballHeight = 45;
+	wallHeight = 40;
+	wallWidth = 45;
+	tryagainX = 200;
+	tryagainY = 200;
+	collision = false;
+	stopped = false;
+	NUMWALLS = 0;
+	MAXWALLS = 10;
+	WALLCOUNTERLIMIT = 300;
+	WALLCOUNTER = 0;
+	TOTALBALLS = 5;
+	CURRENTBALL = 0;
+}
 
 
 function draw() {
@@ -36,16 +62,24 @@ function draw() {
 		drawWalls();
 		updateBallPosition();
 		updateWallPositions();
-	}
-
-	if(NUMWALLS < MAXWALLS) {
-		if(WALLCOUNTER >= WALLCOUNTERLIMIT) {
-			createWall();
-			WALLCOUNTER = 0;
-		} else {
-			WALLCOUNTER = WALLCOUNTER + 1;
+	
+		if(NUMWALLS < MAXWALLS) {
+			if(WALLCOUNTER >= WALLCOUNTERLIMIT) {
+				createWall();
+				WALLCOUNTER = 0;
+			} else {
+				WALLCOUNTER = WALLCOUNTER + 1;
+			}
 		}
+	} else {
+		tryagain();
 	}
+}
+
+function tryagain() {
+	var tryagain = new Image();
+	tryagain.src = "img/sprites/lvl01tryagain.png";
+    context.drawImage(tryagain, tryagainX, tryagainY); 
 }
 
 function resetScreen() {
@@ -184,7 +218,17 @@ addEventListener("keydown", function (e) {
   }
 }, false);
 
+addEventListener('click', function(click) {
+	if(click.x >= tryagainX && click.x <= tryagainX + 800 && 
+		click.y >= tryagainY && click.y <= tryagainY + 200 &&
+		(stopped || collision)) {
+		setup();
+	}
+}, false);
+
+
 function setup() {
+	initializeGlobalVariables();
 	canvas = document.getElementById("myCanvas");
 	context = canvas.getContext("2d");
 	canvas.width = document.body.clientWidth; //document.width is obsolete
@@ -197,7 +241,6 @@ function setup() {
     var background = new Image();
 	background.src = "img/sprites/lvl01background.png";
     context.drawImage(background,0,0);   
-
 
 	createNewBall();
 	CURRENTBALL = 0;
