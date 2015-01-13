@@ -9,14 +9,14 @@ window.onload=function() {
 var count = 0;
 var balls = [];
 var wall = [];
-var width = 600;
-var height = 800;
+var width = 800;
+var height = 600;
 var blackImage = "img/sprites/lvl01black.png";
 var wallSpeed = 0.3;
-var ballWidth = 50;
-var ballHeight = 50;
-var wallHeight = 43;
-var wallWidth = 50;
+var ballWidth = 45;
+var ballHeight = 45;
+var wallHeight = 40;
+var wallWidth = 45;
 var collision = false;
 var stopped = false;
 var NUMWALLS = 0;
@@ -36,7 +36,6 @@ function draw() {
 		drawWalls();
 		updateBallPosition();
 		updateWallPositions();
-		ballHitWallCheck();
 	}
 
 	if(NUMWALLS < MAXWALLS) {
@@ -51,7 +50,6 @@ function draw() {
 
 function resetScreen() {
 	if(context) {
-		context.fillStyle = 'url(img/sprites/lvl01background.png)';
 		context.fillRect(0, 0, width, height);
 
 	    var background = new Image();
@@ -68,17 +66,12 @@ function drawBalls() {
 	})
 }
 
-function ballHitWallCheck() {
-	for (var wallSize = 0; wallSize < wall.length; wallSize++ ) {
-		for(var sectionSize = 0; sectionSize < wall[wallSize].wall.length; sectionSize++) {
-			if(wall[wallSize].wall[sectionSize].active) {
-				if((wall[wallSize].wall[sectionSize].posX <= balls[CURRENTBALL].posX && wall[wallSize].wall[sectionSize].posX + ballWidth >= balls[CURRENTBALL].posX) &&
-					(wall[wallSize].wall[sectionSize].posY <= balls[CURRENTBALL].posY && wall[wallSize].wall[sectionSize].posY + ballHeight >= balls[CURRENTBALL].posY)) {
-					console.log('collision!');
-					collision = true;
-				}
-			}
-		}
+function ballHitWallCheck(section, ball) {
+	if( ( (section.posX <= ball.posX && section.posX + wallWidth >= ball.posX) || 
+		  (section.posX - ballWidth <= ball.posX && section.posX - ballWidth + wallWidth >= ball.posX ) ) &&
+		(section.posY <= ball.posY + ballHeight && section.posY + wallWidth >= ball.posY + ballHeight) ) {
+		console.log('collision');
+		collision = true;
 	}
 }
 
@@ -137,6 +130,7 @@ function updateWallPositions() {
 						NUMWALLS = NUMWALLS - 1;
 					}
 				}
+				ballHitWallCheck(wall[wallSize].wall[sectionSize], balls[CURRENTBALL]);
 			}
 		}
 	}
