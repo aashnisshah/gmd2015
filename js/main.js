@@ -42,7 +42,7 @@ function initializeGlobalVariables() {
 	ballHeight = 45;
 	wallHeight = 40;
 	wallWidth = 45;
-	tryagainX = 200;
+	tryagainX = 350;
 	tryagainY = 200;
 	collision = false;
 	stopped = false;
