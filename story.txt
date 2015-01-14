@@ -1,0 +1,15 @@
+Quotes
+"Ignorance is the night of the mind, but a night without moon and star."
+"It is better to light one small candle than to curse the darkness."
+
+[COMPUTER] Ignorance is the night of the mind, but a night without moon and star. As we light one small candle rather than curse the darkness, we should quest for knowledge rather than corrupt in ignorance. Like any quest, it starts with the first step. Are you ready Steve?
+[STEVE] [action] click on the 'first step'
+
+[COMPUTER] // breakdown of how the game will work
+One must learn many truths before gaining even a shred of knowledg. Each succesful truth unlocks a star, and when all the stars have been unlocked, the final challenge remains; how to attain the moon.
+
+[LEVEL ONE] [It doesn't matter how slow you go so long as you don't stop] [get character down without hitting obstacles or stopping]
+[LEVEL TWO] [To be wronged is nothing unless you continue to remember it.] [pattern matching game]
+
+
+The Smidonator
