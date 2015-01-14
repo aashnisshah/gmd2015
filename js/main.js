@@ -23,6 +23,7 @@ var tryagainX;
 var tryagainY;
 var collision;
 var stopped;
+var completed;
 var NUMWALLS;
 var MAXWALLS;
 var WALLCOUNTERLIMIT;
@@ -42,15 +43,16 @@ function initializeGlobalVariables() {
 	ballHeight = 45;
 	wallHeight = 40;
 	wallWidth = 45;
-	tryagainX = 350;
-	tryagainY = 200;
+	messageX = 350;
+	messageY = 200;
 	collision = false;
 	stopped = false;
+	completed = false;
 	NUMWALLS = 0;
-	MAXWALLS = 10;
+	MAXWALLS = 1;
 	WALLCOUNTERLIMIT = 300;
 	WALLCOUNTER = 0;
-	TOTALBALLS = 5;
+	TOTALBALLS = 1;
 	CURRENTBALL = 0;
 }
 
@@ -112,12 +114,11 @@ function createNewBall() {
 function updateBallPosition() {
 	if(balls[CURRENTBALL].posY >= height - ballHeight) {
 		if(CURRENTBALL < TOTALBALLS - 1) {
-			// CURRENTBALL passed, now to get the next ball
 			createNewBall();
 			CURRENTBALL = CURRENTBALL + 1;
 		} else {
-			// game over, you win!
-			alert('you win!');
+			completed = true;
+			roundComplete();
 		}
 	} else {
 		balls[CURRENTBALL].posY = balls[CURRENTBALL].posY + balls[CURRENTBALL].speed;
@@ -214,10 +215,15 @@ addEventListener("keydown", function (e) {
 }, false);
 
 addEventListener('click', function(click) {
-	if(click.x >= tryagainX && click.x <= tryagainX + 800 && 
-		click.y >= tryagainY && click.y <= tryagainY + 200 &&
-		(stopped || collision)) {
-		setup();
+	if(click.x >= messageX && click.x <= messageX + 800 && 
+		click.y >= messageY && click.y <= messageY + 200 &&
+		(stopped || collision || completed)) {
+		if(stopped || collision) {
+			setup();
+		}
+		if(completed) {
+			alert('completed');
+		}
 	}
 }, false);
 
@@ -245,9 +251,15 @@ function setup() {
 }
 
 function tryagain() {
-	var tryagain = new Image();
-	tryagain.src = "img/sprites/lvl01tryagain.png";
-    context.drawImage(tryagain, tryagainX, tryagainY); 
+	var tryagainImage = new Image();
+	tryagainImage.src = "img/sprites/lvl01tryagain.png";
+    context.drawImage(tryagainImage, messageX, messageY); 
+}
+
+function roundComplete() {
+	var completedImage = new Image();
+	completedImage.src = "img/sprites/lvl01continue.png";
+    context.drawImage(completedImage, messageX, messageY); 
 }
 
 function resetScreen() {
