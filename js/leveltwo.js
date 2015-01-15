@@ -8,18 +8,38 @@ window.onload=function() {
 /*****************************************************
 					Global Variables
  *****************************************************/
-
+var characterImg;
+var patterns;
 
 function initializeGlobalVariables() {
-	
+	characterImg = "img/sprites/lvl02mainChar.png";
+	patterns = [];
 }
 
 /*****************************************************
 						Draw
  *****************************************************/
 function draw() {
-	
+	createCharacter();
+	drawCharacter();
 }
+
+/*****************************************************
+					Character
+ *****************************************************/
+
+ function createCharacter() {
+ 	var newChar = new Image();
+ 	newChar.src = characterImg;
+
+ 	patterns.push(newChar);
+ }
+
+ function drawCharacter() {
+ 	for(var i = 0; i < patterns.length; i++) {
+		context.drawImage(patterns[0], 50, 50);	
+ 	}
+ }
 
 /*****************************************************
 					Helper Functions
@@ -65,13 +85,11 @@ function setup() {
 	context = canvas.getContext("2d");
 	canvas.width = document.body.clientWidth; //document.width is obsolete
     canvas.height = document.body.clientHeight; //document.height is obsolete
-    canvasW = canvas.width;
-    canvasH = canvas.height;
-    width = canvasW;
-    height = canvasH;
+    width = canvas.width;
+    height = canvas.height;
 
     var background = new Image();
-	background.src = "img/sprites/lvl01background.png";
+	background.src = "img/sprites/lvl02background.png";
     context.drawImage(background,0,0);   
 }
 
@@ -80,7 +98,7 @@ function resetScreen() {
 		context.fillRect(0, 0, width, height);
 
 	    var background = new Image();
-		background.src = "img/sprites/lvl01background.png";
+		background.src = "img/sprites/lvl02background.png";
 	    context.drawImage(background, 0, 0, width, height);
 	} else {
 		console.log('no context');

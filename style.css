@@ -26,7 +26,14 @@ body{
 	margin: 0px;
 	width: 800px;
 	height: 600px;
+}
+
+.lvl01 {
 	background: url('img/sprites/lvl01background.png');
+}
+
+.lvl02 {
+	background: url('img/sprites/lvl02background.png');
 }
 
 a.img {
