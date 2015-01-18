@@ -10,10 +10,14 @@ window.onload=function() {
  *****************************************************/
 var characterImg;
 var patterns;
+var charX;
+var charY;
 
 function initializeGlobalVariables() {
 	characterImg = "img/sprites/lvl02mainChar.png";
 	patterns = [];
+	charX = 117;
+	charY = 100;
 }
 
 /*****************************************************
@@ -37,7 +41,7 @@ function draw() {
 
  function drawCharacter() {
  	for(var i = 0; i < patterns.length; i++) {
-		context.drawImage(patterns[0], 50, 50);	
+		context.drawImage(patterns[0], charX, charY);	
  	}
  }
 
