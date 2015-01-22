@@ -30,7 +30,7 @@ function initializeGlobalVariables() {
 	charX = 117;
 	charY = 100;
 	squares = [];
-	maxChar = 1;
+	maxChar = 8;
 	currentChar = 0;
 	inputChar = 0;
 	guesses = [];

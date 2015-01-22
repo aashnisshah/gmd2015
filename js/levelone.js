@@ -49,10 +49,10 @@ function initializeGlobalVariables() {
 	stopped = false;
 	completed = false;
 	NUMWALLS = 0;
-	MAXWALLS = 5;
+	MAXWALLS = 12;
 	WALLCOUNTERLIMIT = 300;
 	WALLCOUNTER = 0;
-	TOTALBALLS = 1;
+	TOTALBALLS = 5;
 	CURRENTBALL = 0;
 }
 
