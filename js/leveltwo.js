@@ -17,6 +17,8 @@ var maxChar;
 var currentChar;
 var guesses;
 var blankImage;
+var counter;
+var speed;
 
 function initializeGlobalVariables() {
 	characterImg = "img/sprites/lvl02mainChar.png";
@@ -28,6 +30,8 @@ function initializeGlobalVariables() {
 	currentChar = 0;
 	guesses = [];
 	blankImage = "img/sprites/lvl01black.png";
+	counter = 0;
+	speed = 350;
 }
 
 function createSquares() {
@@ -49,6 +53,12 @@ function createSquares() {
 						Draw
  *****************************************************/
 function draw() {
+	if(counter === speed && currentChar >= 0) {
+		counter = 0;
+		currentChar = currentChar < maxChar - 1 ? currentChar + 1 : -1;
+	}
+	counter = counter + 1;
+	console.log(counter + ' ' + currentChar);
 	drawCharacter();
 }
 
@@ -65,8 +75,11 @@ function draw() {
  }
 
  function drawCharacter() {
- 	for(var i = 0; i < squares.length; i++) {
+ 	if(currentChar >= 0) {
 		context.drawImage(patterns[currentChar], squares[currentChar].x, squares[currentChar].y);
+ 	} else {
+ 		// enterNumbers();
+ 		console.log('enter numbers');
  	}
  }
 
@@ -92,7 +105,6 @@ addEventListener("keydown", function (e) {
   				console.log('next character');
   				patterns[currentChar].src = blankImage;
   				console.log(patterns[currentChar]);
-  				resetScreen();
   				currentChar = currentChar + 1;
   			} else if(currentChar === maxChar - 1) {
   				console.log('game over');
@@ -182,5 +194,6 @@ var listener = setInterval(main, 1);
 
 /* main function */
 function main() {
+  	resetScreen();
 	draw();
 };
