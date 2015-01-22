@@ -30,7 +30,7 @@ function initializeGlobalVariables() {
 	charX = 117;
 	charY = 100;
 	squares = [];
-	maxChar = 5;
+	maxChar = 1;
 	currentChar = 0;
 	inputChar = 0;
 	guesses = [];
@@ -86,10 +86,12 @@ function draw() {
 			console.log('enter numbers');
 			enterNumberMessage();
 			counter = counter + 1;
-			if(counter === 500){
+			if(counter === 1000){
 				counter = 0;
 				displayMessage = '';
 			}
+		} else if(displayMessage === 'continue') {
+			continueMessage();
 		}
 	}
 }
@@ -104,6 +106,13 @@ function enterNumberMessage() {
 	var enterNums = new Image();
 	enterNums.src = "img/sprites/lvl02enterNumbers.png";
 	context.drawImage(enterNums, 316, 222);
+}
+
+function continueMessage() {
+	console.log('conitnue');
+	var contine = new Image();
+	contine.src = "img/sprites/lvl02continue.png";
+	context.drawImage(contine, 316, 222);
 }
 
 /*****************************************************
@@ -161,6 +170,7 @@ addEventListener("keydown", function (e) {
 	  				inputChar = inputChar + 1;
 	  				if(enteredCharacters === maxChar - 1) {
 	  					console.log('alive');
+	  					displayMessage = 'continue';
 	  				}
 	  			}
 	  		} else {
@@ -192,6 +202,13 @@ addEventListener("keydown", function (e) {
 	  } 
 	}
 
+}, false);
+
+addEventListener('click', function(click) {
+	console.log(click);
+	if(displayMessage === 'continue') {
+		alert('completed');
+	}
 }, false);
 
 function checkNumberIsRight() {
