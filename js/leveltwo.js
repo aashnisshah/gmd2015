@@ -12,12 +12,28 @@ var characterImg;
 var patterns;
 var charX;
 var charY;
+var squares;
+var maxChar;
 
 function initializeGlobalVariables() {
 	characterImg = "img/sprites/lvl02mainChar.png";
 	patterns = [];
 	charX = 117;
 	charY = 100;
+	squares = [];
+	maxChar = 1;
+}
+
+function createSquares() {
+	for (var i = 0; i < maxChar; i++) {
+		var coX = charX + (272 * getRandomNumber(0,4));
+		var coY = charY + (156 * getRandomNumber(0,2));
+		var cordinates = {
+			x: coX,
+			y: coY
+		};
+		squares.push(cordinates);
+	}
 }
 
 /*****************************************************
@@ -40,8 +56,9 @@ function draw() {
  }
 
  function drawCharacter() {
- 	for(var i = 0; i < patterns.length; i++) {
-		context.drawImage(patterns[0], charX, charY);	
+ 	for(var i = 0; i < squares.length; i++) {
+		context.drawImage(patterns[0], squares[i].x, squares[i].y);
+		// debugger	
  	}
  }
 
@@ -51,7 +68,8 @@ function draw() {
 function getRandomNumber(small, big) {
 	small = small || 0;
 	big = big || 0;
-	return Math.floor(Math.random() * big) + small;
+	var ranNum = Math.floor(Math.random() * (big - small + 1)) + small;
+	return ranNum;
 }
 
 /*****************************************************
@@ -67,24 +85,25 @@ addEventListener("keydown", function (e) {
 
 }, false);
 
-addEventListener('click', function(click) {
-	if(click.x >= messageX && click.x <= messageX + 800 && 
-		click.y >= messageY && click.y <= messageY + 200 &&
-		(stopped || collision || completed)) {
-		if(stopped || collision) {
-			setup();
-		}
-		if(completed) {
-			alert('completed');
-		}
-	}
-}, false);
+// addEventListener('click', function(click) {
+// 	if(click.x >= messageX && click.x <= messageX + 800 && 
+// 		click.y >= messageY && click.y <= messageY + 200 &&
+// 		(stopped || collision || completed)) {
+// 		if(stopped || collision) {
+// 			setup();
+// 		}
+// 		if(completed) {
+// 			alert('completed');
+// 		}
+// 	}
+// }, false);
 
 /*****************************************************
 					Setup
  *****************************************************/
 function setup() {
 	initializeGlobalVariables();
+	createSquares(charX, charY);
 	canvas = document.getElementById("myCanvas");
 	context = canvas.getContext("2d");
 	canvas.width = document.body.clientWidth; //document.width is obsolete
