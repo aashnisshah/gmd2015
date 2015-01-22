@@ -71,7 +71,6 @@ function draw() {
 				}
 			}
 			counter = counter + 1;
-			console.log(counter);
 		}
 		drawCharacter();
 	} else {
@@ -83,7 +82,6 @@ function draw() {
 				displayMessage = '';
 			}
 		} else if(displayMessage === 'enterNumbers') {
-			console.log('enter numbers');
 			enterNumberMessage();
 			counter = counter + 1;
 			if(counter === 1000){
@@ -92,6 +90,13 @@ function draw() {
 			}
 		} else if(displayMessage === 'continue') {
 			continueMessage();
+		} else if(displayMessage === 'wrong') {
+			wrongMessage();
+			counter = counter + 1;
+			if(counter === 300){
+				counter = 0;
+				displayMessage = '';
+			}
 		}
 	}
 }
@@ -109,10 +114,15 @@ function enterNumberMessage() {
 }
 
 function continueMessage() {
-	console.log('conitnue');
 	var contine = new Image();
 	contine.src = "img/sprites/lvl02continue.png";
 	context.drawImage(contine, 316, 222);
+}
+
+function wrongMessage() {
+	var wrong = new Image();
+	wrong.src = "img/sprites/lvl02wrongNumber.png";
+	context.drawImage(wrong, 316, 222);
 }
 
 /*****************************************************
@@ -163,19 +173,16 @@ addEventListener("keydown", function (e) {
 	  	if(guesses.length > 0) {
 	  		if (checkNumberIsRight()) {
 	  			if(inputChar < maxChar) {
-	  				console.log('input get next');
 	  				enteredCharacters = enteredCharacters < 0 ? 0 : 
 	  						enteredCharacters < maxChar - 1 ? enteredCharacters + 1 : enteredCharacters;
-	  						console.log(enteredCharacters);
 	  				inputChar = inputChar + 1;
 	  				if(enteredCharacters === maxChar - 1) {
-	  					console.log('alive');
 	  					displayMessage = 'continue';
 	  				}
 	  			}
 	  		} else {
 	  			// you got the wrong number
-	  			console.log('wrong number');
+	  			displayMessage = 'wrong';
 	  		}
 	  	}
 	  	guesses = [];
@@ -205,7 +212,6 @@ addEventListener("keydown", function (e) {
 }, false);
 
 addEventListener('click', function(click) {
-	console.log(click);
 	if(displayMessage === 'continue') {
 		alert('completed');
 	}
