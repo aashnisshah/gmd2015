@@ -7,18 +7,31 @@ body{
 #intro{
 	text-align:center;
 	vertical-align: center;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-top: -50px;
-	margin-left: -50px;
-	color: white;
-	font-size: 120px;
+	color: #269ed6;
+	font-size: 48px;
+	padding:20px;
 }
 
 #intro a:link, #intro a:visited, #intro a:hover {
-	color: white;
+	color: #8bcfef;
 	text-decoration: none;
+}
+
+#start{
+	text-align:center;
+	vertical-align: center;
+	color: #269ed6;
+	font-size: 60px;
+	padding-top:50px;
+}
+
+#start a:link, #start a:visited, #start a:hover {
+	color: #8bcfef;
+	text-decoration: none;
+}
+
+#start a:hover {
+	color: #6add37;
 }
 
 #myCanvas{

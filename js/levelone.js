@@ -222,7 +222,7 @@ addEventListener('click', function(click) {
 			setup();
 		}
 		if(completed) {
-			window.location.href = "game2.html";
+			window.location.href = "intro2.html";
 		}
 	}
 }, false);

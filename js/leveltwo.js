@@ -208,7 +208,7 @@ addEventListener("keydown", function (e) {
 
 addEventListener('click', function(click) {
 	if(displayMessage === 'continue') {
-		alert('completed');
+		window.location.href = "theend.html";
 	} else if(displayMessage === 'wrong') {
 		resetScreen();
 		setup();
