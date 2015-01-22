@@ -92,11 +92,6 @@ function draw() {
 			continueMessage();
 		} else if(displayMessage === 'wrong') {
 			wrongMessage();
-			counter = counter + 1;
-			if(counter === 300){
-				counter = 0;
-				displayMessage = '';
-			}
 		}
 	}
 }
@@ -214,6 +209,9 @@ addEventListener("keydown", function (e) {
 addEventListener('click', function(click) {
 	if(displayMessage === 'continue') {
 		alert('completed');
+	} else if(displayMessage === 'wrong') {
+		resetScreen();
+		setup();
 	}
 }, false);
 
