@@ -21,6 +21,7 @@ var blankImage;
 var counter;
 var speed;
 var enterNumbersFlag;
+var enteredCharacters;
 
 function initializeGlobalVariables() {
 	characterImg = "img/sprites/lvl02mainChar.png";
@@ -36,6 +37,7 @@ function initializeGlobalVariables() {
 	counter = 0;
 	speed = 150;
 	enterNumbersFlag = false;
+	enteredCharacters = -1;
 }
 
 function createSquares() {
@@ -64,7 +66,12 @@ function draw() {
 		}
 		counter = counter + 1;
 	}
-	drawCharacter();
+	// if(!enterNumbersFlag) {
+		drawCharacter();
+	// } else {
+	// 	drawEnteredCharacters();
+	// }
+	// drawCharacter();
 }
 
 /*****************************************************
@@ -84,6 +91,21 @@ function draw() {
 		context.drawImage(patterns[currentChar], squares[currentChar].x, squares[currentChar].y);
  	} else {
  		enterNumbers();
+ 		if(enteredCharacters > 0) {
+	 		for(var i = 0; i < enteredCharacters; i++ ) {
+	 			context.drawImage(patterns[i], squares[i].x, squares[i].y);
+	 		}
+	 	}
+ 	}
+ }
+
+ function drawEnteredCharacters() {
+ 	if(enteredCharacters.length > 0) {
+ 		// for(var i = 0; i < enteredCharacters.length; i++) {
+ 			console.log('draw things');
+ 			// debugger
+ 			context.drawImage(patterns[enteredCharacters[0]], squares[enteredCharacters[0]].x, squares[enteredCharacters[0]].y);
+ 		// }
  	}
  }
 
@@ -105,13 +127,19 @@ function getRandomNumber(small, big) {
 					Event Listeners 
  *****************************************************/
 addEventListener("keydown", function (e) {
+	console.log('keydown');
 	if(enterNumbersFlag) {
 	  if(e.keyCode == 13){
 	  	if(guesses.length > 0) {
+	  		console.log('guess');
 	  		if (checkNumberIsRight()) {
+	  			console.log('checknumb');
 	  			if(inputChar < maxChar - 1) {
+	  				console.log('input get next');
+	  				console.log(enteredCharacters);
 	  				// move on to next image
-	  				patterns[inputChar].src = blankImage;
+	  				// patterns[inputChar].src = blankImage;
+	  				enteredCharacters = enteredCharacters + 1;
 	  				inputChar = inputChar + 1;
 	  			} else if(inputChar === maxChar - 1) {
 	  				// you survived
