@@ -66,17 +66,30 @@ function draw() {
 			if(counter === speed) {
 				counter = 0;
 				currentChar = currentChar < maxChar - 1 ? currentChar + 1 : -1;
+				if(currentChar === -1) {
+					displayMessage = 'enterNumbers';
+				}
 			}
 			counter = counter + 1;
 			console.log(counter);
 		}
 		drawCharacter();
 	} else {
-		payAttention();
-		counter = counter + 1;
-		if(counter === 500){
-			counter = 0;
-			displayMessage = '';
+		if(displayMessage === 'payAttention') {
+			payAttention();
+			counter = counter + 1;
+			if(counter === 500){
+				counter = 0;
+				displayMessage = '';
+			}
+		} else if(displayMessage === 'enterNumbers') {
+			console.log('enter numbers');
+			enterNumberMessage();
+			counter = counter + 1;
+			if(counter === 500){
+				counter = 0;
+				displayMessage = '';
+			}
 		}
 	}
 }
@@ -85,6 +98,12 @@ function payAttention() {
 	var payAttention = new Image();
 	payAttention.src = "img/sprites/lvl02payattention.png";
 	context.drawImage(payAttention, 316, 222);
+}
+
+function enterNumberMessage() {
+	var enterNums = new Image();
+	enterNums.src = "img/sprites/lvl02enterNumbers.png";
+	context.drawImage(enterNums, 316, 222);
 }
 
 /*****************************************************
