@@ -52,7 +52,7 @@ function initializeGlobalVariables() {
 	MAXWALLS = 5;
 	WALLCOUNTERLIMIT = 300;
 	WALLCOUNTER = 0;
-	TOTALBALLS = 5;
+	TOTALBALLS = 1;
 	CURRENTBALL = 0;
 }
 
@@ -222,7 +222,7 @@ addEventListener('click', function(click) {
 			setup();
 		}
 		if(completed) {
-			alert('completed');
+			window.location.href = "game2.html";
 		}
 	}
 }, false);
