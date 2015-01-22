@@ -22,6 +22,7 @@ var counter;
 var speed;
 var enterNumbersFlag;
 var enteredCharacters;
+var displayMessage;
 
 function initializeGlobalVariables() {
 	characterImg = "img/sprites/lvl02mainChar.png";
@@ -38,6 +39,7 @@ function initializeGlobalVariables() {
 	speed = 150;
 	enterNumbersFlag = false;
 	enteredCharacters = -1;
+	displayMessage = 'payAttention';
 }
 
 function createSquares() {
@@ -59,14 +61,30 @@ function createSquares() {
 						Draw
  *****************************************************/
 function draw() {
-	if(currentChar >= 0) {
-		if(counter === speed) {
-			counter = 0;
-			currentChar = currentChar < maxChar - 1 ? currentChar + 1 : -1;
+	if(displayMessage === '') {
+		if(currentChar >= 0) {
+			if(counter === speed) {
+				counter = 0;
+				currentChar = currentChar < maxChar - 1 ? currentChar + 1 : -1;
+			}
+			counter = counter + 1;
+			console.log(counter);
 		}
+		drawCharacter();
+	} else {
+		payAttention();
 		counter = counter + 1;
+		if(counter === 500){
+			counter = 0;
+			displayMessage = '';
+		}
 	}
-	drawCharacter();
+}
+
+function payAttention() {
+	var payAttention = new Image();
+	payAttention.src = "img/sprites/lvl02payattention.png";
+	context.drawImage(payAttention, 316, 222);
 }
 
 /*****************************************************
