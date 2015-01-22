@@ -16,6 +16,7 @@ var squares;
 var maxChar;
 var currentChar;
 var guesses;
+var blankImage;
 
 function initializeGlobalVariables() {
 	characterImg = "img/sprites/lvl02mainChar.png";
@@ -23,9 +24,10 @@ function initializeGlobalVariables() {
 	charX = 117;
 	charY = 100;
 	squares = [];
-	maxChar = 1;
+	maxChar = 5;
 	currentChar = 0;
 	guesses = [];
+	blankImage = "img/sprites/lvl01black.png";
 }
 
 function createSquares() {
@@ -47,7 +49,6 @@ function createSquares() {
 						Draw
  *****************************************************/
 function draw() {
-	createCharacter();
 	drawCharacter();
 }
 
@@ -56,17 +57,17 @@ function draw() {
  *****************************************************/
 
  function createCharacter() {
- 	var newChar = new Image();
- 	newChar.src = characterImg;
-
- 	patterns.push(newChar);
+ 	for(var i = 0; i < maxChar; i++) {
+	 	var newChar = new Image();
+	 	newChar.src = characterImg;
+	 	patterns.push(newChar);
+ 	}
  }
 
  function drawCharacter() {
- 	// for(var i = 0; i < squares.length; i++) {
+ 	for(var i = 0; i < squares.length; i++) {
 		context.drawImage(patterns[currentChar], squares[currentChar].x, squares[currentChar].y);
-		// debugger	
- 	// }
+ 	}
  }
 
 /*****************************************************
@@ -83,13 +84,16 @@ function getRandomNumber(small, big) {
 					Event Listeners 
  *****************************************************/
 addEventListener("keydown", function (e) {
-  // up = 38, down = 40
   if(e.keyCode == 13){
   	console.log('enter');
   	if(guesses.length > 0) {
   		if (checkNumberIsRight()) {
   			if(currentChar < maxChar - 1) {
   				console.log('next character');
+  				patterns[currentChar].src = blankImage;
+  				console.log(patterns[currentChar]);
+  				resetScreen();
+  				currentChar = currentChar + 1;
   			} else if(currentChar === maxChar - 1) {
   				console.log('game over');
   			}
@@ -145,6 +149,7 @@ function checkNumberIsRight() {
 function setup() {
 	initializeGlobalVariables();
 	createSquares(charX, charY);
+	createCharacter();
 	canvas = document.getElementById("myCanvas");
 	context = canvas.getContext("2d");
 	canvas.width = document.body.clientWidth; //document.width is obsolete
