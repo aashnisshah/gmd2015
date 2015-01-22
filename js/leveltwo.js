@@ -66,12 +66,7 @@ function draw() {
 		}
 		counter = counter + 1;
 	}
-	// if(!enterNumbersFlag) {
-		drawCharacter();
-	// } else {
-	// 	drawEnteredCharacters();
-	// }
-	// drawCharacter();
+	drawCharacter();
 }
 
 /*****************************************************
@@ -91,21 +86,11 @@ function draw() {
 		context.drawImage(patterns[currentChar], squares[currentChar].x, squares[currentChar].y);
  	} else {
  		enterNumbers();
- 		if(enteredCharacters > 0) {
-	 		for(var i = 0; i < enteredCharacters; i++ ) {
+ 		if(enteredCharacters >= 0) {
+	 		for(var i = 0; i <= enteredCharacters; i++ ) {
 	 			context.drawImage(patterns[i], squares[i].x, squares[i].y);
 	 		}
 	 	}
- 	}
- }
-
- function drawEnteredCharacters() {
- 	if(enteredCharacters.length > 0) {
- 		// for(var i = 0; i < enteredCharacters.length; i++) {
- 			console.log('draw things');
- 			// debugger
- 			context.drawImage(patterns[enteredCharacters[0]], squares[enteredCharacters[0]].x, squares[enteredCharacters[0]].y);
- 		// }
  	}
  }
 
@@ -127,25 +112,23 @@ function getRandomNumber(small, big) {
 					Event Listeners 
  *****************************************************/
 addEventListener("keydown", function (e) {
-	console.log('keydown');
 	if(enterNumbersFlag) {
 	  if(e.keyCode == 13){
 	  	if(guesses.length > 0) {
-	  		console.log('guess');
 	  		if (checkNumberIsRight()) {
-	  			console.log('checknumb');
-	  			if(inputChar < maxChar - 1) {
+	  			if(inputChar < maxChar) {
 	  				console.log('input get next');
-	  				console.log(enteredCharacters);
-	  				// move on to next image
-	  				// patterns[inputChar].src = blankImage;
-	  				enteredCharacters = enteredCharacters + 1;
+	  				enteredCharacters = enteredCharacters < 0 ? 0 : 
+	  						enteredCharacters < maxChar - 1 ? enteredCharacters + 1 : enteredCharacters;
+	  						console.log(enteredCharacters);
 	  				inputChar = inputChar + 1;
-	  			} else if(inputChar === maxChar - 1) {
-	  				// you survived
+	  				if(enteredCharacters === maxChar - 1) {
+	  					console.log('alive');
+	  				}
 	  			}
 	  		} else {
 	  			// you got the wrong number
+	  			console.log('wrong number');
 	  		}
 	  	}
 	  	guesses = [];
